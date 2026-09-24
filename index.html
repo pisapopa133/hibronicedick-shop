@@ -221,10 +221,6 @@ main{transition:opacity .25s}
 /* header plaque, sliding language thumb */
 header{transition:padding .7s cubic-bezier(.16,1,.3,1)}
 header.s{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:10px}
-header::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.95),rgba(0,0,0,.84));
-  backdrop-filter:blur(26px) saturate(1.4);-webkit-backdrop-filter:blur(26px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.09);box-shadow:0 24px 60px rgba(0,0,0,.65);
-  transform:translateY(-105%);opacity:0;transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .7s ease}
-header.s::before{transform:none;opacity:1}
 .logo,.nm{transition:filter .8s,text-shadow .8s}
 header.s .logo{text-shadow:0 0 18px rgba(255,255,255,.28)}
 .lang{--w:44px;--h:32px;position:relative}
@@ -234,11 +230,56 @@ header.s .logo{text-shadow:0 0 18px rgba(255,255,255,.28)}
 .lang button.on{background:none;color:#000}
 @media(max-width:640px){.lang{--w:38px;--h:30px}}
 @media(max-width:400px){.lt{display:inline}}
+
+/* iOS liquid-glass header: appears on scroll down, melts away on scroll up */
+header,header.s{padding:calc(env(safe-area-inset-top,0px) + 14px) 5vw 14px}
+header::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:calc(env(safe-area-inset-top,0px) + 6px) 2.2vw 6px;border-radius:26px;
+  background:radial-gradient(120% 220% at 8% -60%,rgba(255,255,255,.26),transparent 55%),linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.035)),rgba(10,10,10,.34);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(255,255,255,.06),inset 0 0 30px rgba(255,255,255,.05),0 24px 60px -16px rgba(0,0,0,.75);
+  opacity:0;transform:translateY(-16px) scale(.97);
+  -webkit-backdrop-filter:blur(0px) saturate(1);backdrop-filter:blur(0px) saturate(1);
+  transition:opacity .8s ease,transform 1s cubic-bezier(.16,1,.3,1),backdrop-filter 1s ease,-webkit-backdrop-filter 1s ease}
+header.g::before{opacity:1;transform:none;-webkit-backdrop-filter:blur(30px) saturate(1.8);backdrop-filter:blur(30px) saturate(1.8)}
+header nav a{transition:color .3s,background .4s}
+header nav a:hover{background:rgba(255,255,255,.08)}
+@media(max-width:640px){header,header.s{padding:calc(env(safe-area-inset-top,0px) + 12px) 4vw 12px}header::before{inset:calc(env(safe-area-inset-top,0px) + 5px) 2vw 5px;border-radius:22px}}
+/* shared glass highlights */
+.prod,.rc,.cta-box,.lang{background-image:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,0) 45%)}
+.btn.g{background-image:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0))}
+::selection{background:#fff;color:#000}
+html{scrollbar-color:#2a2a2a #000}
+
+/* progressive blur edge, brighter text on glass, readable copy */
+.pb{position:fixed;top:0;left:0;right:0;height:calc(env(safe-area-inset-top,0px) + 120px);z-index:15;pointer-events:none;opacity:0;transition:opacity .9s ease}
+.pb.on{opacity:1}
+.pb::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.34) 50%,transparent)}
+.pb i{position:absolute;inset:0}
+.pb i:nth-child(1){-webkit-backdrop-filter:blur(1.5px);backdrop-filter:blur(1.5px);-webkit-mask-image:linear-gradient(180deg,#000 0,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 55%,transparent 100%)}
+.pb i:nth-child(2){-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);-webkit-mask-image:linear-gradient(180deg,#000 0,#000 35%,transparent 75%);mask-image:linear-gradient(180deg,#000 0,#000 35%,transparent 75%)}
+.pb i:nth-child(3){-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(180deg,#000 0,#000 12%,transparent 50%);mask-image:linear-gradient(180deg,#000 0,#000 12%,transparent 50%)}
+header.g::before{-webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6)}
+header nav a,.logo{transition:color .6s ease,background .4s,text-shadow .8s}
+header.g nav a{color:#ededed}
+header.g .logo{color:#fff}
+header.g .lang button{color:#d4d4d4}
+header.g .lang button.on{color:#000}
+header nav a:hover{color:#fff}
+h2,h3,.tag{text-wrap:balance}
+p,.step span{text-wrap:pretty}
+.sub{color:rgba(255,255,255,.76);font-weight:400;font-size:clamp(16px,1.35vw,18px);line-height:1.7;max-width:58ch;text-wrap:balance}
+.info p{color:#cacaca}.step span{color:#b0b0b0}
+/* sections melt away as they scroll off the top */
+@keyframes fout{to{opacity:0;filter:blur(12px);transform:translateY(-26px) scale(.975)}}
+@supports (animation-timeline:view()){
+  section>.rv,.grid>.rv,.steps>.rv{animation:fout linear both;animation-timeline:view();animation-range:exit 10% exit 100%}
+}
 </style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="cl" id="cl"></div>
+<div class="pb" id="pb"><i></i><i></i><i></i></div>
 
 <header id="hd">
   <a class="logo" href="#top"><img class="nm" alt=""><span class="lt">HIBRONICEDICK</span></a>
@@ -357,12 +398,14 @@ var I={ru:{shop:'Каталог',rev:'Отзывы',how:'Как купить',vi
  bsp:'Buy on Select Place',bvk:'Buy on VK',rs:'What my customers say.',cu:'Customer',hs:'Three steps, usually just a few minutes.',
  s1t:'Pick a CFG',s1d:'Find the right config in the catalog.',s2t:'Choose where to buy',s2d:'Message me on VK or place an order on Select Place.',
  s3t:'Get your file',s3d:'After payment I send the CFG and an install guide.',ch:'Ready to grab your CFG?',cvk:'VK group'}};
+var NB=/(^|\s)([A-Za-z\u0400-\u04FF]{1,2})\s/g;
+function nb(t){return t.replace(NB,'$1$2\u00A0').replace(NB,'$1$2\u00A0')}
 function setLang(l,soft){
   var els=[].slice.call(document.querySelectorAll('[data-i]'));
   document.documentElement.lang=l;document.querySelector('.lang').setAttribute('data-l',l);
   document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l)});
   els.forEach(function(e,i){
-    var t=I[l][e.getAttribute('data-i')];
+    var t=nb(I[l][e.getAttribute('data-i')]);
     if(soft||rm||!e.animate||e.textContent===t){e.textContent=t;return}
     var r=e.getBoundingClientRect();
     if(!(r.bottom>0&&r.top<innerHeight)||(e.classList.contains('rv')&&!e.classList.contains('in'))){e.textContent=t;return}
@@ -374,6 +417,16 @@ document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener
   var l=b.getAttribute('data-l');try{localStorage.setItem('lang',l)}catch(e){}setLang(l)})});
 var saved='ru';try{saved=localStorage.getItem('lang')||'ru'}catch(e){}
 setLang(saved==='en'?'en':'ru',true);
+
+var anc=scrollY;
+addEventListener('scroll',function(){var y=scrollY;
+  if(y<60){hd.classList.remove('g');anc=y;return}
+  if(y-anc>6){hd.classList.add('g');anc=y}else if(anc-y>6){hd.classList.remove('g');anc=y}
+},{passive:true});
+
+var pb=document.getElementById('pb');
+function pbf(){pb.classList.toggle('on',scrollY>40)}
+addEventListener('scroll',pbf,{passive:true});pbf();
 </script>
 </body>
 </html>
