@@ -274,6 +274,218 @@ p,.step span{text-wrap:pretty}
 @supports (animation-timeline:view()){
   section>.rv,.grid>.rv,.steps>.rv{animation:fout linear both;animation-timeline:view();animation-range:exit 10% exit 100%}
 }
+
+/* ===== FINAL MOBILE / GLASS POLISH ===== */
+:root{
+  --mobile-pad: clamp(16px, 5vw, 28px);
+  --glass-bg: rgba(18,18,18,.58);
+  --glass-border: rgba(255,255,255,.16);
+}
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  overflow-x:clip;
+}
+body{
+  min-width:320px;
+  overflow-x:clip;
+  overscroll-behavior-x:none;
+}
+button,a{
+  -webkit-tap-highlight-color:transparent;
+}
+header{
+  will-change:transform,opacity;
+  transform:translateZ(0);
+}
+header::before{
+  background:
+    radial-gradient(120% 180% at 8% -60%,rgba(255,255,255,.24),transparent 55%),
+    linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.035)),
+    var(--glass-bg);
+}
+.logo{
+  min-width:0;
+}
+.logo .lt{
+  max-width:34vw;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  transition:max-width .55s cubic-bezier(.16,1,.3,1),opacity .4s ease,transform .55s cubic-bezier(.16,1,.3,1);
+}
+header.g .logo .lt{
+  max-width:0;
+  opacity:0;
+  transform:translateX(-8px);
+  pointer-events:none;
+}
+header.g .nm{
+  height:30px;
+}
+@media (max-width:760px){
+  header,header.s{
+    padding-left:max(14px,4vw);
+    padding-right:max(14px,4vw);
+  }
+  header::before{
+    inset:calc(env(safe-area-inset-top,0px) + 5px) 2.5vw 5px;
+    border-radius:20px;
+  }
+  .logo .lt{max-width:42vw}
+  .hero{
+    min-height:100svh;
+    padding:104px var(--mobile-pad) 52px;
+  }
+  .mark{
+    width:min(72vw,290px);
+    height:auto;
+    aspect-ratio:760/682;
+    margin-bottom:4px;
+  }
+  h1{
+    max-width:100%;
+    font-size:clamp(34px,11vw,72px);
+    white-space:normal;
+    line-height:.98;
+    overflow-wrap:anywhere;
+  }
+  .tag{
+    max-width:34rem;
+    margin-top:20px;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .acts{
+    width:100%;
+    margin-top:28px;
+    gap:10px;
+  }
+  .acts .btn,.row .btn{
+    width:100%;
+    max-width:none;
+    min-width:0;
+  }
+  section{
+    width:100%;
+    padding:68px var(--mobile-pad);
+  }
+  h2{
+    font-size:clamp(28px,8vw,44px);
+  }
+  .sub{
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:30px;
+  }
+  .grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .prod,.rc,.cta-box{
+    border-radius:24px;
+  }
+  .prod:hover,.rc:hover,.card:hover{
+    transform:none;
+    box-shadow:none;
+  }
+  .pic{
+    aspect-ratio:1.08;
+  }
+  .info{
+    padding:20px;
+  }
+  .info h3{
+    min-height:0;
+    font-size:20px;
+  }
+  .info p{
+    min-height:0;
+    font-size:14px;
+    line-height:1.55;
+  }
+  .buys{
+    gap:9px;
+  }
+  .buys .btn{
+    min-height:50px;
+  }
+  .step{
+    grid-template-columns:46px 1fr;
+    gap:8px;
+    padding:22px 0;
+  }
+  .step::before{
+    font-size:27px;
+  }
+  .step b{font-size:16px}
+  .step span{font-size:14px;line-height:1.55}
+  .cta-box{
+    padding:50px 18px;
+  }
+  .rvw{
+    margin-left:calc(var(--mobile-pad) * -1);
+    margin-right:calc(var(--mobile-pad) * -1);
+    padding-left:var(--mobile-pad);
+    padding-right:var(--mobile-pad);
+  }
+  .rvw>.rv{
+    flex-basis:min(88%,360px);
+  }
+  footer{
+    padding-left:var(--mobile-pad);
+    padding-right:var(--mobile-pad);
+  }
+}
+@media (max-width:480px){
+  header.g .logo .lt{display:none}
+  .logo .nm{height:25px}
+  .lang{
+    --w:34px;
+    --h:28px;
+  }
+  .lang button{
+    font-size:11px;
+  }
+  nav .cta-s{
+    height:34px;
+    padding:0 11px;
+    font-size:12px;
+  }
+  .hero{
+    padding-top:92px;
+  }
+  .mark{
+    width:min(78vw,270px);
+  }
+  h1{
+    font-size:clamp(31px,10.5vw,52px);
+  }
+  .acts .btn{
+    min-height:50px;
+  }
+  .prod{
+    border-radius:22px;
+  }
+  .info{
+    padding:18px;
+  }
+  .cta-box h2{
+    font-size:28px;
+  }
+}
+@media (hover:none){
+  .prod:hover,.rc:hover,.card:hover,.btn:hover{
+    transform:none;
+  }
+  .prod:active,.rc:active,.card:active{
+    transform:scale(.995);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  header .logo .lt{transition:none}
+}
+
 </style>
 </head>
 <body>
@@ -292,7 +504,7 @@ p,.step span{text-wrap:pretty}
     <h1>HIBRONICEDICK</h1>
     <p class="tag">The Best CFG Shop</p>
     <div class="acts">
-      <a class="btn w" href="#shop" data-i="view">Смотреть CFG</a>
+      
       <a class="btn g" href="https://select-place.ru/seller/131430" target="_blank" rel="noopener">Select Place</a>
       <a class="btn g" href="https://vk.ru/hibronicedickshop" target="_blank" rel="noopener" data-i="vk">Написать в VK</a>
     </div>
@@ -386,7 +598,7 @@ REVIEWS.forEach(function(r){
   box.appendChild(d);io.observe(d);
 });
 /* ---- language ---- */
-var I={ru:{shop:'Каталог',rev:'Отзывы',how:'Как купить',view:'Смотреть CFG',vk:'Написать в VK',
+var I={ru:{shop:'Каталог',rev:'Отзывы',how:'Как купить',view:'',vk:'Написать в VK',
  cs:'Готовые конфиги, настроенные и проверенные. Выбери свой и оформи покупку на Select Place или в VK.',
  pm:'Легитный конфиг для Midnight: аимбот, триггербот и плавность под аккуратную игру.',pn:'Набор конфигов для Nixware под разные стили игры.',pv:'Semi-Rage конфиг для Neverlose — NO VAC LIVE.',
  bsp:'Купить на Select Place',bvk:'Купить в VK',rs:'Что пишут мои покупатели.',cu:'Покупатель',hs:'Три шага, обычно это занимает несколько минут.',
@@ -428,5 +640,31 @@ var pb=document.getElementById('pb');
 function pbf(){pb.classList.toggle('on',scrollY>40)}
 addEventListener('scroll',pbf,{passive:true});pbf();
 </script>
+
+<script>
+(() => {
+  const header = document.getElementById('hd');
+  if (!header) return;
+  let ticking = false;
+
+  const updateHeader = () => {
+    const compact = window.scrollY > Math.max(48, window.innerHeight * 0.10);
+    header.classList.toggle('g', compact);
+    header.classList.toggle('s', compact);
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, {passive:true});
+
+  window.addEventListener('resize', updateHeader, {passive:true});
+  updateHeader();
+})();
+</script>
+
 </body>
 </html>
