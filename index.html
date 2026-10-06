@@ -102,6 +102,11 @@ footer a{color:#fff;border-bottom:1px solid var(--line)}
 @keyframes d3{to{transform:translate(-18vmax,14vmax) scale(.8)}}
 .cl{position:fixed;z-index:1;top:0;left:0;width:55vmax;height:55vmax;margin:-27vmax 0 0 -27vmax;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(255,255,255,.11),transparent 62%);will-change:transform}
+.cta-catalog{display:inline-flex;align-items:center;gap:10px}
+.cta-catalog .chev{width:18px;height:18px;animation:chevBounce 1.8s ease-in-out infinite}
+@keyframes chevBounce{0%,100%{transform:translateY(0);opacity:.85}50%{transform:translateY(4px);opacity:1}}
+.cta-catalog:hover .chev{animation-play-state:paused;transform:translateY(3px)}
+@media(prefers-reduced-motion:reduce){.cta-catalog .chev{animation:none}}
 @media(hover:none){.cl{display:none}}
 .grid{gap:28px;max-width:980px;margin:0 auto}
 .prod{border-radius:34px;overflow:hidden;background:rgba(255,255,255,.045);border:1px solid var(--line);
@@ -535,9 +540,10 @@ img,svg{max-width:100%}
     <h1>HIBRONICEDICK</h1>
     <p class="tag">The Best CFG Shop</p>
     <div class="acts">
-      
-      <a class="btn g" href="https://select-place.ru/seller/131430" target="_blank" rel="noopener">Select Place</a>
-      <a class="btn g" href="https://vk.ru/hibronicedickshop" target="_blank" rel="noopener" data-i="vk">Написать в VK</a>
+      <a class="btn w cta-catalog" href="#shop">
+        <span data-i="view">Смотреть каталог</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9l7 7 7-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
   </div>
 
@@ -629,7 +635,7 @@ REVIEWS.forEach(function(r){
   box.appendChild(d);io.observe(d);
 });
 /* ---- language ---- */
-var I={ru:{shop:'Каталог',rev:'Отзывы',how:'Как купить',view:'',vk:'Написать в VK',
+var I={ru:{shop:'Каталог',rev:'Отзывы',how:'Как купить',view:'Смотреть каталог',vk:'Написать в VK',
  cs:'Готовые конфиги, настроенные и проверенные. Выбери свой и оформи покупку на Select Place или в VK.',
  pm:'Легитный конфиг для Midnight: аимбот, триггербот и плавность под аккуратную игру.',pn:'Набор конфигов для Nixware под разные стили игры.',pv:'Semi-Rage конфиг для Neverlose — NO VAC LIVE.',
  bsp:'Купить на Select Place',bvk:'Купить в VK',rs:'Что пишут мои покупатели.',cu:'Покупатель',hs:'Три шага, обычно это занимает несколько минут.',
